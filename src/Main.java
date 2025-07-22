@@ -34,34 +34,34 @@ public class Main {
             GameBoard myBoard = new GameBoard();
             Boolean MyBoardUpdated=false;
         do {
-             MyBoardUpdated=myBoard.modifySquare('A', "A1");
+             MyBoardUpdated=myBoard.modifySquare('A');
              myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('B', "A2");
+            MyBoardUpdated=myBoard.modifySquare('B');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('C', "A3");
+            MyBoardUpdated=myBoard.modifySquare('C');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('D', "B1");
+            MyBoardUpdated=myBoard.modifySquare('D');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('E', "B2");
+            MyBoardUpdated=myBoard.modifySquare('E');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('F', "B3");
+            MyBoardUpdated=myBoard.modifySquare('F');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('G', "C1");
+            MyBoardUpdated=myBoard.modifySquare('G');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('H', "C2");
+            MyBoardUpdated=myBoard.modifySquare('H');
             myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('I', "C3");
+            MyBoardUpdated=myBoard.modifySquare('I');
             myBoard.printBoard();
 
-        }while (MyBoardUpdated==false);
+        }while (false);
 
             newGame = anotherGame();
         } while (newGame);
@@ -150,28 +150,51 @@ public class Main {
             Integer yComputer=0;
             for (int x=0; x<this.COLUMN_COUNT; x++){
                 if (this.columnDescription[x].equals(xChessboard)){
-                    xComputer = this.COLUMN_COUNT -1 - x;
+                    xComputer =  x;
                 }
             }
                 for (int y=0; y<this.LINES_COUNT; y++){
                     if (lineDescription[y].equals(yChessboard)){
-                        yComputer = this.LINES_COUNT -1 - y;
+                        yComputer =  y;
                     }
 
             }
 
-            Integer[] ComputerCoord = {xComputer, yComputer};
+            Integer[] ComputerCoord = {yComputer, xComputer};
             //System.out.println(xComputer.toString() + " " + yComputer.toString());
         return ComputerCoord;
     }
-    Boolean modifySquare(Character playerSymbol, String squareCoordinates){
+    Boolean modifySquare(Character playerSymbol){
         System.out.println("Symbol:" +playerSymbol);
-        System.out.println("Chess Coords:" +squareCoordinates);
-        Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
-        System.out.println("Computer Coords Column:" +ComputerCoords[0]);
-        System.out.println("Computer Coords Line:" +ComputerCoords[1]);
+       // System.out.println("Chess Coords:" +squareCoordinates);
+        //Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
+        //System.out.println("Computer Coords Column:" +ComputerCoords[0]);
+        //System.out.println("Computer Coords Line:" +ComputerCoords[1]);
 
+        Scanner inputCoord = new Scanner(System.in);
+        String targetSquare;
+        while (true) {
+            try {
+                System.out.println("Zadej souradnice: ");
+                targetSquare = inputCoord.nextLine();
+                if (targetSquare.length()!=2){
+                    System.out.println("Invalid Input!");
+                    throw new Exception(ANSI_RED + "Zadej prave 2 znaky!"+ ANSI_RESET);
+                } else {
+                    String targerColumn=targetSquare.substring(0,1);
+                    String targetLine=targetSquare.substring(1,2);
+                    System.out.println(targerColumn + ":" +targetLine);
+
+                    break;
+                    }
+
+            } catch (Exception e) {
+                    System.out.println(ANSI_RED + "Invalid input!" + e.getMessage()+ ANSI_RESET);
+            }
+        }
+        Integer[] ComputerCoords = this.coderCoordinates(targetSquare);
         this.GameZone[ComputerCoords[0]][ComputerCoords[1]]=playerSymbol;
-        return true;
+        return false;
+
     }
 }}
