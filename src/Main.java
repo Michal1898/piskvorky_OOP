@@ -32,36 +32,36 @@ public class Main {
         do {
             /* init game */
             GameBoard myBoard = new GameBoard();
-            Boolean MyBoardUpdated=false;
-        do {
-             MyBoardUpdated=myBoard.modifySquare('A');
-             myBoard.printBoard();
+            Boolean MyBoardUpdated = false;
+            do {
+                MyBoardUpdated = myBoard.modifySquare('A');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('B');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('B');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('C');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('C');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('D');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('D');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('E');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('E');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('F');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('F');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('G');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('G');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('H');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('H');
+                myBoard.printBoard();
 
-            MyBoardUpdated=myBoard.modifySquare('I');
-            myBoard.printBoard();
+                MyBoardUpdated = myBoard.modifySquare('I');
+                myBoard.printBoard();
 
-        }while (false);
+            } while (false);
 
             newGame = anotherGame();
         } while (newGame);
@@ -99,8 +99,8 @@ public class Main {
         private final Integer LINES_COUNT = 3;
         private final Integer COLUMN_COUNT = 3;
         protected Character[][] GameZone = new Character[LINES_COUNT][COLUMN_COUNT];
-        private String[]  lineDescription={"3","2","1"};
-        private String[] columnDescription= {"A","B" ,"C"};
+        private String[] lineDescription = {"3", "2", "1"};
+        private String[] columnDescription = {"A", "B", "C"};
 
         GameBoard() {
             // Fill Game Board with symbol E - like Empty square
@@ -114,13 +114,13 @@ public class Main {
         void printBoard() {
             Character squareDescription;
             for (int x = 0; x < LINES_COUNT; x++) {
-                Character linesDescription=decoderCoordinates(0,x).charAt(1);
-                System.out.print(ANSI_GREEN+linesDescription+ ": "+ ANSI_RESET);
+                Character linesDescription = decoderCoordinates(0, x).charAt(1);
+                System.out.print(ANSI_GREEN + linesDescription + ": " + ANSI_RESET);
                 for (int y = 0; y < COLUMN_COUNT; y++) {
                     if ((x + y) % 2 == 0) {
-                        System.out.print(PURPLE_BACKGROUND + " "+  GameZone[x][y]+ " ");
+                        System.out.print(PURPLE_BACKGROUND + " " + GameZone[x][y] + " ");
                     } else {
-                        System.out.print(WHITE_BACKGROUND + " "+GameZone[x][y]+  " ");
+                        System.out.print(WHITE_BACKGROUND + " " + GameZone[x][y] + " ");
                     }
                     System.out.print(ANSI_RESET);
                 }
@@ -128,73 +128,106 @@ public class Main {
             }
             System.out.print("   ");
             for (int y = 0; y < COLUMN_COUNT; y++) {
-                Character columnDesription=decoderCoordinates(y, 0).charAt(0);
-                System.out.print(ANSI_GREEN + " " + columnDesription+ " ");
+                Character columnDesription = decoderCoordinates(y, 0).charAt(0);
+                System.out.print(ANSI_GREEN + " " + columnDesription + " ");
             }
             System.out.print(ANSI_RESET + "\n");
         }
-        String decoderCoordinates(int x, int y){
+
+        String decoderCoordinates(int x, int y) {
             // because computer array system is for human somewhat unnatural,
             // I decode it to for human more natural
             // chessboad system and return it.
 
-            String chessboardCoords=this.columnDescription[x]+this.lineDescription[y];
+            String chessboardCoords = this.columnDescription[x] + this.lineDescription[y];
             return (chessboardCoords);
         }
-        Integer[] coderCoordinates(String chessBoardCoord){
+
+        Integer[] coderCoordinates(String chessBoardCoord) {
             String xChessboard = String.valueOf(chessBoardCoord.charAt(0));
             String yChessboard = String.valueOf(chessBoardCoord.charAt(1));
 
-            System.out.println(chessBoardCoord + ":" +yChessboard+"  " + xChessboard);
-            Integer xComputer=0;
-            Integer yComputer=0;
-            for (int x=0; x<this.COLUMN_COUNT; x++){
-                if (this.columnDescription[x].equals(xChessboard)){
-                    xComputer =  x;
+            System.out.println(chessBoardCoord + ":" + yChessboard + "  " + xChessboard);
+            Integer xComputer = 0;
+            Integer yComputer = 0;
+            for (int x = 0; x < this.COLUMN_COUNT; x++) {
+                if (this.columnDescription[x].equals(xChessboard)) {
+                    xComputer = x;
                 }
             }
-                for (int y=0; y<this.LINES_COUNT; y++){
-                    if (lineDescription[y].equals(yChessboard)){
-                        yComputer =  y;
-                    }
+            for (int y = 0; y < this.LINES_COUNT; y++) {
+                if (lineDescription[y].equals(yChessboard)) {
+                    yComputer = y;
+                }
 
             }
 
             Integer[] ComputerCoord = {yComputer, xComputer};
             //System.out.println(xComputer.toString() + " " + yComputer.toString());
-        return ComputerCoord;
-    }
-    Boolean modifySquare(Character playerSymbol){
-        System.out.println("Symbol:" +playerSymbol);
-       // System.out.println("Chess Coords:" +squareCoordinates);
-        //Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
-        //System.out.println("Computer Coords Column:" +ComputerCoords[0]);
-        //System.out.println("Computer Coords Line:" +ComputerCoords[1]);
+            return ComputerCoord;
+        }
 
-        Scanner inputCoord = new Scanner(System.in);
-        String targetSquare;
-        while (true) {
+        Boolean modifySquare(Character playerSymbol) {
+            String targetColumn;
+            String targetLine;
+            System.out.println("Symbol:" + playerSymbol);
+            // System.out.println("Chess Coords:" +squareCoordinates);
+            //Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
+            //System.out.println("Computer Coords Column:" +ComputerCoords[0]);
+            //System.out.println("Computer Coords Line:" +ComputerCoords[1]);
+
+            Scanner inputCoord = new Scanner(System.in);
+            String targetSquare;
+
             try {
                 System.out.println("Zadej souradnice: ");
                 targetSquare = inputCoord.nextLine();
-                if (targetSquare.length()!=2){
+                if (targetSquare.length() != 2) {
                     System.out.println("Invalid Input!");
-                    throw new Exception(ANSI_RED + "Zadej prave 2 znaky!"+ ANSI_RESET);
+                    throw new Exception(ANSI_RED + "Zadej prave 2 znaky!" + ANSI_RESET);
                 } else {
-                    String targerColumn=targetSquare.substring(0,1);
-                    String targetLine=targetSquare.substring(1,2);
-                    System.out.println(targerColumn + ":" +targetLine);
-
-                    break;
+                    Boolean xFound = false;
+                    Boolean yFound = false;
+                    targetColumn = targetSquare.substring(0, 1);
+                    targetLine = targetSquare.substring(1, 2);
+                    System.out.println(targetColumn + ":" + targetLine);
+                    for (int x = 0; x < this.COLUMN_COUNT; x++) {
+                        if (columnDescription[x].equals(targetColumn)) {
+                            xFound = true;
+                        }
                     }
+                    for (int y = 0; y < this.LINES_COUNT; y++) {
+                        if (lineDescription[y].equals(targetLine)) {
+                            yFound = true;
+                        }
+
+                    }
+                    if (xFound && yFound) {
+                        // target square successfully found!
+                        Integer[] ComputerCoords = this.coderCoordinates(targetSquare);
+                        //Check, if target square is empty:
+                        System.out.println(this.GameZone[ComputerCoords[0]][ComputerCoords[1]].equals("E"));
+                        System.out.println(this.GameZone[ComputerCoords[0]][ComputerCoords[1]] + " x " + "E");
+                        if (this.GameZone[ComputerCoords[0]][ComputerCoords[1]].equals("E")) {
+
+                        this.GameZone[ComputerCoords[0]][ComputerCoords[1]] = playerSymbol;
+                        return true;} else {
+
+                            System.out.println("Cilove pole je uz obsazeno!");
+                            throw new Exception(ANSI_RED + "Vyber si prazdne pole!" + ANSI_RESET);
+                        }
+                    } else {
+                        System.out.println("Mimo rozsah!");
+                        throw new Exception(ANSI_RED + "Zadej hodnotu v rozsahu!" + ANSI_RESET);
+                    }
+                }
+
 
             } catch (Exception e) {
-                    System.out.println(ANSI_RED + "Invalid input!" + e.getMessage()+ ANSI_RESET);
-            }
-        }
-        Integer[] ComputerCoords = this.coderCoordinates(targetSquare);
-        this.GameZone[ComputerCoords[0]][ComputerCoords[1]]=playerSymbol;
-        return false;
+                System.out.println(ANSI_RED + "Invalid input!" + e.getMessage() + ANSI_RESET);
 
+            }
+            return false;
+        }
     }
-}}
+}
