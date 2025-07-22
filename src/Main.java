@@ -29,6 +29,8 @@ public class Main {
             /* init game */
             GameBoard myBoard = new GameBoard();
 
+            myBoard.printBoard();
+
             // Do you wish new game (ano / ne)
             newGame = anotherGame();
         } while (newGame);
@@ -75,9 +77,29 @@ class GameBoard {
                 GameZone[x][y] = 'E';
             }
         }
-        for (Character[] row : GameZone) {
-            System.out.println(Arrays.toString(row));
-        }
+//        for (Character[] row : GameZone) {
+//            System.out.println(Arrays.toString(row));
+//        }
 
+    }
+
+    void printBoard() {
+        for (int x = 0; x < LINES_COUNT; x++) {
+            System.out.print(x + ": ");
+            for (int y = 0; y < COLUMN_COUNT; y++) {
+                System.out.print(this.GameZone[x][y] + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.print("   ");
+        for (int x = 0; x < 2 * LINES_COUNT; x++) {
+            System.out.print("-");
+        }
+        System.out.print("\n");
+        System.out.print("   ");
+        for (int y = 0; y < COLUMN_COUNT; y++) {
+            System.out.print(y + " ");
+        }
+        System.out.print("\n");
     }
 }
