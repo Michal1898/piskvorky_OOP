@@ -32,13 +32,36 @@ public class Main {
         do {
             /* init game */
             GameBoard myBoard = new GameBoard();
+            Boolean MyBoardUpdated=false;
+        do {
+             MyBoardUpdated=myBoard.modifySquare('A', "A1");
+             myBoard.printBoard();
 
-            myBoard.printBoard();
-            myBoard.modifySquare('X',"A1");
-            myBoard.printBoard();
-            myBoard.modifySquare('O',"C3");
+            MyBoardUpdated=myBoard.modifySquare('B', "A2");
             myBoard.printBoard();
 
+            MyBoardUpdated=myBoard.modifySquare('C', "A3");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('D', "B1");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('E', "B2");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('F', "B3");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('G', "C1");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('H', "C2");
+            myBoard.printBoard();
+
+            MyBoardUpdated=myBoard.modifySquare('I', "C3");
+            myBoard.printBoard();
+
+        }while (MyBoardUpdated==false);
 
             newGame = anotherGame();
         } while (newGame);
@@ -127,12 +150,12 @@ public class Main {
             Integer yComputer=0;
             for (int x=0; x<this.COLUMN_COUNT; x++){
                 if (this.columnDescription[x].equals(xChessboard)){
-                    xComputer = x;
+                    xComputer = this.COLUMN_COUNT -1 - x;
                 }
             }
                 for (int y=0; y<this.LINES_COUNT; y++){
                     if (lineDescription[y].equals(yChessboard)){
-                        yComputer = y;
+                        yComputer = this.LINES_COUNT -1 - y;
                     }
 
             }
@@ -141,7 +164,7 @@ public class Main {
             //System.out.println(xComputer.toString() + " " + yComputer.toString());
         return ComputerCoord;
     }
-    boolean modifySquare(Character playerSymbol, String squareCoordinates){
+    Boolean modifySquare(Character playerSymbol, String squareCoordinates){
         System.out.println("Symbol:" +playerSymbol);
         System.out.println("Chess Coords:" +squareCoordinates);
         Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
