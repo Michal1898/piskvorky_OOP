@@ -34,6 +34,11 @@ public class Main {
             GameBoard myBoard = new GameBoard();
 
             myBoard.printBoard();
+            myBoard.modifySquare('X',"A1");
+            myBoard.printBoard();
+            myBoard.modifySquare('O',"C3");
+            myBoard.printBoard();
+
 
             newGame = anotherGame();
         } while (newGame);
@@ -135,5 +140,15 @@ public class Main {
             Integer[] ComputerCoord = {xComputer, yComputer};
             //System.out.println(xComputer.toString() + " " + yComputer.toString());
         return ComputerCoord;
+    }
+    boolean modifySquare(Character playerSymbol, String squareCoordinates){
+        System.out.println("Symbol:" +playerSymbol);
+        System.out.println("Chess Coords:" +squareCoordinates);
+        Integer[] ComputerCoords=this.coderCoordinates(squareCoordinates);
+        System.out.println("Computer Coords Column:" +ComputerCoords[0]);
+        System.out.println("Computer Coords Line:" +ComputerCoords[1]);
+
+        this.GameZone[ComputerCoords[0]][ComputerCoords[1]]=playerSymbol;
+        return true;
     }
 }}
