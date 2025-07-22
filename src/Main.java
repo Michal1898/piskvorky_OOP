@@ -34,17 +34,7 @@ public class Main {
             GameBoard myBoard = new GameBoard();
 
             myBoard.printBoard();
-//            System.out.println("decoder test");
-//            System.out.println(myBoard.decoderCoordinates(0,0));
-//            System.out.println(myBoard.decoderCoordinates(0,2));
-//            System.out.println(myBoard.decoderCoordinates(1,1));
-//            System.out.println(myBoard.decoderCoordinates(2,2));
-//            System.out.println(myBoard.decoderCoordinates(2,1));
-            System.out.println("coder test");
-            System.out.println(Arrays.toString(myBoard.coderCoordinates("C1")));
-            System.out.println(Arrays.toString(myBoard.coderCoordinates("B2")));
-            System.out.println(Arrays.toString(myBoard.coderCoordinates("C2")));
-            // Do you wish new game (ano / ne)
+
             newGame = anotherGame();
         } while (newGame);
         System.out.println(ANSI_RED + "Konec programu" + ANSI_RESET);
@@ -131,13 +121,11 @@ public class Main {
             Integer xComputer=0;
             Integer yComputer=0;
             for (int x=0; x<this.COLUMN_COUNT; x++){
-               // System.out.println(this.columnDescription[x]+ "  "+xChessboard);
                 if (this.columnDescription[x].equals(xChessboard)){
                     xComputer = x;
                 }
             }
                 for (int y=0; y<this.LINES_COUNT; y++){
-//                    System.out.println(this.lineDescription[y]+ "  "+yChessboard);
                     if (lineDescription[y].equals(yChessboard)){
                         yComputer = y;
                     }
@@ -145,8 +133,7 @@ public class Main {
             }
 
             Integer[] ComputerCoord = {xComputer, yComputer};
-            System.out.println(xComputer.toString() + " " + yComputer.toString());
-            String Ahoj = "ahoj";
+            //System.out.println(xComputer.toString() + " " + yComputer.toString());
         return ComputerCoord;
     }
 }}
