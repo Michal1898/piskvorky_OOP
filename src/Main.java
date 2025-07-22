@@ -13,6 +13,10 @@ public class Main {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String BLACK_BACKGROUND = "\u001B[40m";
+    public static final String CYAN_BACKGROUND = "\u001B[46m";
+    public static final String PURPLE_BACKGROUND = "\u001B[46m";
+    public static final String WHITE_BACKGROUND = "\u001B[47m";
 
     private static String string;
 
@@ -63,43 +67,39 @@ public class Main {
         }
     }
 
-}
 
-class GameBoard {
-    private final Integer LINES_COUNT = 3;
-    private final Integer COLUMN_COUNT = 3;
-    protected Character[][] GameZone = new Character[LINES_COUNT][COLUMN_COUNT];
+    static class GameBoard {
+        private final Integer LINES_COUNT = 3;
+        private final Integer COLUMN_COUNT = 3;
+        protected Character[][] GameZone = new Character[LINES_COUNT][COLUMN_COUNT];
 
-    GameBoard() {
-        // Fill Game Board with symbol E - like Empty square
-        for (int x = 0; x < LINES_COUNT; x++) {
-            for (int y = 0; y < COLUMN_COUNT; y++) {
-                GameZone[x][y] = 'E';
+        GameBoard() {
+            // Fill Game Board with symbol E - like Empty square
+            for (int x = 0; x < LINES_COUNT; x++) {
+                for (int y = 0; y < COLUMN_COUNT; y++) {
+                    GameZone[x][y] = 'E';
+                }
             }
         }
-//        for (Character[] row : GameZone) {
-//            System.out.println(Arrays.toString(row));
-//        }
 
-    }
-
-    void printBoard() {
-        for (int x = 0; x < LINES_COUNT; x++) {
-            System.out.print(x + ": ");
+        void printBoard() {
+            for (int x = 0; x < LINES_COUNT; x++) {
+                System.out.print(x + ": ");
+                for (int y = 0; y < COLUMN_COUNT; y++) {
+                    if ((x + y) % 2 == 0) {
+                        System.out.print(PURPLE_BACKGROUND + " "+  GameZone[x][y]+ " ");
+                    } else {
+                        System.out.print(WHITE_BACKGROUND + " "+GameZone[x][y]+  " ");
+                    }
+                    System.out.print(ANSI_RESET);
+                }
+                System.out.print("\n");
+            }
+            System.out.print("   ");
             for (int y = 0; y < COLUMN_COUNT; y++) {
-                System.out.print(this.GameZone[x][y] + " ");
+                System.out.print(" "+y + " ");
             }
             System.out.print("\n");
         }
-        System.out.print("   ");
-        for (int x = 0; x < 2 * LINES_COUNT; x++) {
-            System.out.print("-");
-        }
-        System.out.print("\n");
-        System.out.print("   ");
-        for (int y = 0; y < COLUMN_COUNT; y++) {
-            System.out.print(y + " ");
-        }
-        System.out.print("\n");
     }
 }
