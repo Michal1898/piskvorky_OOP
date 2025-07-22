@@ -34,7 +34,16 @@ public class Main {
             GameBoard myBoard = new GameBoard();
 
             myBoard.printBoard();
-
+//            System.out.println("decoder test");
+//            System.out.println(myBoard.decoderCoordinates(0,0));
+//            System.out.println(myBoard.decoderCoordinates(0,2));
+//            System.out.println(myBoard.decoderCoordinates(1,1));
+//            System.out.println(myBoard.decoderCoordinates(2,2));
+//            System.out.println(myBoard.decoderCoordinates(2,1));
+            System.out.println("coder test");
+            System.out.println(Arrays.toString(myBoard.coderCoordinates("C1")));
+            System.out.println(Arrays.toString(myBoard.coderCoordinates("B2")));
+            System.out.println(Arrays.toString(myBoard.coderCoordinates("C2")));
             // Do you wish new game (ano / ne)
             newGame = anotherGame();
         } while (newGame);
@@ -72,6 +81,8 @@ public class Main {
         private final Integer LINES_COUNT = 3;
         private final Integer COLUMN_COUNT = 3;
         protected Character[][] GameZone = new Character[LINES_COUNT][COLUMN_COUNT];
+        private String[]  lineDescription={"3","2","1"};
+        private String[] columnDescription= {"A","B" ,"C"};
 
         GameBoard() {
             // Fill Game Board with symbol E - like Empty square
@@ -83,8 +94,10 @@ public class Main {
         }
 
         void printBoard() {
+            Character squareDescription;
             for (int x = 0; x < LINES_COUNT; x++) {
-                System.out.print(x + ": ");
+                Character linesDescription=decoderCoordinates(0,x).charAt(1);
+                System.out.print(ANSI_GREEN+linesDescription+ ": "+ ANSI_RESET);
                 for (int y = 0; y < COLUMN_COUNT; y++) {
                     if ((x + y) % 2 == 0) {
                         System.out.print(PURPLE_BACKGROUND + " "+  GameZone[x][y]+ " ");
@@ -97,9 +110,43 @@ public class Main {
             }
             System.out.print("   ");
             for (int y = 0; y < COLUMN_COUNT; y++) {
-                System.out.print(" "+y + " ");
+                Character columnDesription=decoderCoordinates(y, 0).charAt(0);
+                System.out.print(ANSI_GREEN + " " + columnDesription+ " ");
             }
-            System.out.print("\n");
+            System.out.print(ANSI_RESET + "\n");
         }
+        String decoderCoordinates(int x, int y){
+            // because computer array system is for human somewhat unnatural,
+            // I decode it to for human more natural
+            // chessboad system and return it.
+
+            String chessboardCoords=this.columnDescription[x]+this.lineDescription[y];
+            return (chessboardCoords);
+        }
+        Integer[] coderCoordinates(String chessBoardCoord){
+            String xChessboard = String.valueOf(chessBoardCoord.charAt(0));
+            String yChessboard = String.valueOf(chessBoardCoord.charAt(1));
+
+            System.out.println(chessBoardCoord + ":" +yChessboard+"  " + xChessboard);
+            Integer xComputer=0;
+            Integer yComputer=0;
+            for (int x=0; x<this.COLUMN_COUNT; x++){
+               // System.out.println(this.columnDescription[x]+ "  "+xChessboard);
+                if (this.columnDescription[x].equals(xChessboard)){
+                    xComputer = x;
+                }
+            }
+                for (int y=0; y<this.LINES_COUNT; y++){
+//                    System.out.println(this.lineDescription[y]+ "  "+yChessboard);
+                    if (lineDescription[y].equals(yChessboard)){
+                        yComputer = y;
+                    }
+
+            }
+
+            Integer[] ComputerCoord = {xComputer, yComputer};
+            System.out.println(xComputer.toString() + " " + yComputer.toString());
+            String Ahoj = "ahoj";
+        return ComputerCoord;
     }
-}
+}}
