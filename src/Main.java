@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -15,21 +16,18 @@ public class Main {
 
     private static String string;
 
+
     public static void main(String[] args) {
         Boolean newGame;
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println(ANSI_BLUE + "Piskvorky" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "vytvoril Michal Volf" + ANSI_RESET);
+
         do {
-            //init game
-
-
-            System.out.println(ANSI_BLUE + "Piskvorky" + ANSI_RESET);
-            System.out.println(ANSI_BLUE + "vytvoril Michal Volf" + ANSI_RESET);
-
-
-            do {
-
-            } while (false);
+            /* init game */
+            GameBoard myBoard = new GameBoard();
 
             // Do you wish new game (ano / ne)
             newGame = anotherGame();
@@ -63,5 +61,23 @@ public class Main {
         }
     }
 
+}
 
+class GameBoard {
+    private final Integer LINES_COUNT = 3;
+    private final Integer COLUMN_COUNT = 3;
+    protected Character[][] GameZone = new Character[LINES_COUNT][COLUMN_COUNT];
+
+    GameBoard() {
+        // Fill Game Board with symbol E - like Empty square
+        for (int x = 0; x < LINES_COUNT; x++) {
+            for (int y = 0; y < COLUMN_COUNT; y++) {
+                GameZone[x][y] = 'E';
+            }
+        }
+        for (Character[] row : GameZone) {
+            System.out.println(Arrays.toString(row));
+        }
+
+    }
 }
