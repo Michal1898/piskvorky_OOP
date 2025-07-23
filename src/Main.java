@@ -167,6 +167,8 @@ public class Main {
             return ComputerCoord;
         }
 
+
+
         Boolean modifySquare(Character playerSymbol) {
             String targetColumn;
             String targetLine;
@@ -208,10 +210,12 @@ public class Main {
                         //Check, if target square is empty:
                         System.out.println(this.GameZone[ComputerCoords[0]][ComputerCoords[1]].equals("E"));
                         System.out.println(this.GameZone[ComputerCoords[0]][ComputerCoords[1]] + " x " + "E");
-                        if (this.GameZone[ComputerCoords[0]][ComputerCoords[1]].equals("E")) {
+                        String squareValue = Character.toString(this.GameZone[ComputerCoords[0]][ComputerCoords[1]]);
+                        if (squareValue.equals("E")) {
 
-                        this.GameZone[ComputerCoords[0]][ComputerCoords[1]] = playerSymbol;
-                        return true;} else {
+                            this.GameZone[ComputerCoords[0]][ComputerCoords[1]] = playerSymbol;
+                            return true;
+                        } else {
 
                             System.out.println("Cilove pole je uz obsazeno!");
                             throw new Exception(ANSI_RED + "Vyber si prazdne pole!" + ANSI_RESET);
