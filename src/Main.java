@@ -1,3 +1,6 @@
+import org.w3c.dom.ls.LSOutput;
+
+import java.sql.SQLOutput;
 import java.util.*;
 
 
@@ -33,19 +36,17 @@ public class Main {
             Boolean MyBoardUpdated = false;
             Boolean gameOver;
             Boolean boardChanged;
+
+            PlayerOne playerOne = new PlayerOne("X");
+            PlayerTwo playerTwo = new PlayerTwo("O");
+
             do {
-                gameOver = true;
                 System.out.println("Hra zacina:");
-                PlayerOne playerOne = new PlayerOne("X");
-                PlayerTwo playerTwo = new PlayerTwo("O");
-
-
                 myBoard.printBoard();
                 playerOne.printPlayer();
                 playerTwo.printPlayer();
 
                 do{
-
                     if (playerOne.onMove==true){
                         boardChanged = myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
                         System.out.println(boardChanged);
@@ -55,15 +56,26 @@ public class Main {
                     myBoard.printBoard();
                 }while (boardChanged==false);
 
-                myBoard.printBoard();
-                playerOne.printPlayer();
-                playerTwo.printPlayer();
                 playerOne.switchOnMove();
+                myBoard.printBoard();
+                gameOver=myBoard.evaluateBoard(playerOne.getPlayerSymbol().charAt(0),playerTwo.getPlayerSymbol().charAt(0));
+
                 playerOne.printPlayer();
                 playerTwo.printPlayer();
-
 
             } while (gameOver==false);
+            System.out.println("Zaverecna pozice:");
+            System.out.println("**********");
+            myBoard.printBoard();
+            playerOne.printPlayer();
+            playerTwo.printPlayer();
+
+            if (myBoard.gameIsDraw()==true){
+                System.out.println("Hra konci nerozhodne.");
+            } else{
+                System.out.println("Vitezem je: " + myBoard.winnerIs());
+            }
+
 
             newGame = anotherGame();
         } while (newGame);
