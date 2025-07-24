@@ -281,6 +281,117 @@ public  class GameBoard {
                 ;
 
             }
+            //evaluate diagonals
+        int emptySquare = 0;
+        int playerOneSquare = 0;
+        int playerTwoSquare = 0;
+            for (int a = 0; a < LINES_COUNT; a++) {
+
+                    if (this.GameZone[a][a] == playerOneSymbol) {
+                        playerOneSquare += 1;
+                    } else if (this.GameZone[a][a] == playerTwoSymbol) {
+                        playerTwoSquare += 1;
+                    } else {
+                        emptySquare += 1;
+                        emptySquareTotal += 1;
+                    }
+            }
+        switch (emptySquare) {
+            case 0:
+                // the line is full
+
+                // one of player have completed 3 symbol in row
+                //end the game and decide the winner"
+                if (playerOneSquare == WINNER_SERIES) {
+                    this.gameIsOver = true;
+                    this.gameIsDraw = false;
+                    this.winnersSymbol = playerOneSymbol;
+                    return this.gameIsOver;
+                } else if (playerTwoSquare == WINNER_SERIES) {
+                    this.gameIsOver = true;
+                    this.gameIsDraw = false;
+                    this.winnersSymbol = playerTwoSymbol;
+                    return this.gameIsOver;
+                } else {
+                    // but in the column are different values.
+                    // ->keep on next column
+                    break;
+                }
+
+            case 1:
+                // one empty space in the column
+                if (playerOneSquare == 1) {
+                    ;
+                    //each of player have one symbol in this column.
+                    // -> this column can never be winner
+                } else {
+                    this.gameIsDraw = false;
+                    // on the board is still some square to place symbol.
+                    // one of player have both symbols in this column.
+                    // it can be still winner.
+                    break;
+                }
+            default:
+                // if only one or none symbol is filled in this column,
+                // it can be still winner.
+                this.gameIsDraw = false;
+                break;
+        }
+// diagonal 2 evalution
+        emptySquare = 0;
+        playerOneSquare = 0;
+        playerTwoSquare = 0;
+        for (int a = LINES_COUNT-1; a >=0; a--) {
+            if (this.GameZone[a][LINES_COUNT-1-a] == playerOneSymbol) {
+                playerOneSquare += 1;
+            } else if (this.GameZone[a][LINES_COUNT-1-a] == playerTwoSymbol) {
+                playerTwoSquare += 1;
+            } else {
+                emptySquare += 1;
+                emptySquareTotal += 1;
+            }
+        }
+        switch (emptySquare) {
+            case 0:
+                // the line is full
+
+                // one of player have completed 3 symbol in row
+                //end the game and decide the winner"
+                if (playerOneSquare == WINNER_SERIES) {
+                    this.gameIsOver = true;
+                    this.gameIsDraw = false;
+                    this.winnersSymbol = playerOneSymbol;
+                    return this.gameIsOver;
+                } else if (playerTwoSquare == WINNER_SERIES) {
+                    this.gameIsOver = true;
+                    this.gameIsDraw = false;
+                    this.winnersSymbol = playerTwoSymbol;
+                    return this.gameIsOver;
+                } else {
+                    // but in the column are different values.
+                    // ->keep on next column
+                    break;
+                }
+
+            case 1:
+                // one empty space in the column
+                if (playerOneSquare == 1) {
+                    ;
+                    //each of player have one symbol in this column.
+                    // -> this column can never be winner
+                } else {
+                    this.gameIsDraw = false;
+                    // on the board is still some square to place symbol.
+                    // one of player have both symbols in this column.
+                    // it can be still winner.
+                    break;
+                }
+            default:
+                // if only one or none symbol is filled in this column,
+                // it can be still winner.
+                this.gameIsDraw = false;
+                break;
+        }
 // there are no more empty squares on the board
             if (emptySquareTotal == 0) {
                 this.gameIsDraw = true;
