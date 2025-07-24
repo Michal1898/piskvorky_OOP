@@ -151,24 +151,30 @@ public  class GameBoard {
     public Boolean gameIsDraw() {
         return this.gameIsDraw;
     }
+
+    public Character winnerIs(){
+        return (this.winnersSymbol);
+    }
+
     public Boolean evaluateBoard (Character playerOneSymbol, Character playerTwoSymbol) {
         int emptySquareTotal = 0;
-        this.gameIsOver=false;
-        this.gameIsDraw=true;
+        this.gameIsOver = false;
+        this.gameIsDraw = true;
+        //evaluate columns:
         for (int y = 0; y < COLUMN_COUNT; y++) {
             int emptySquare = 0;
 
             int playerOneSquare = 0;
             int playerTwoSquare = 0;
             // check column
-            for  (int x = 0; x < LINES_COUNT; x++) {
-                if (this.GameZone[x][y] == playerOneSymbol){
-                    playerOneSquare+=1;
-                } else if (this.GameZone[x][y] == playerTwoSymbol){
-                    playerTwoSquare+=1;
-                }else{
-                    emptySquare+=1;
-                    emptySquareTotal+=1;
+            for (int x = 0; x < LINES_COUNT; x++) {
+                if (this.GameZone[x][y] == playerOneSymbol) {
+                    playerOneSquare += 1;
+                } else if (this.GameZone[x][y] == playerTwoSymbol) {
+                    playerTwoSquare += 1;
+                } else {
+                    emptySquare += 1;
+                    emptySquareTotal += 1;
                 }
             }
             switch (emptySquare) {
@@ -180,14 +186,14 @@ public  class GameBoard {
                     if (playerOneSquare == WINNER_SERIES) {
                         this.gameIsOver = true;
                         this.gameIsDraw = false;
-                        this.winnersSymbol=playerOneSymbol;
+                        this.winnersSymbol = playerOneSymbol;
                         return this.gameIsOver;
-                    }else if (playerTwoSquare == WINNER_SERIES) {
+                    } else if (playerTwoSquare == WINNER_SERIES) {
                         this.gameIsOver = true;
                         this.gameIsDraw = false;
-                        this.winnersSymbol=playerTwoSymbol;
+                        this.winnersSymbol = playerTwoSymbol;
                         return this.gameIsOver;
-                    }else {
+                    } else {
                         // but in the column are different values.
                         // ->keep on next column
                         break;
@@ -211,21 +217,81 @@ public  class GameBoard {
                     // it can be still winner.
                     this.gameIsDraw = false;
                     break;
-            };
-
-
+            }
+            ;
         }
+            //evaluate lines:
+            for (int x = 0; x < LINES_COUNT; x++) {
+                int emptySquare = 0;
+
+                int playerOneSquare = 0;
+                int playerTwoSquare = 0;
+                // check lines
+                for (int y = 0; y < COLUMN_COUNT; y++) {
+                    if (this.GameZone[x][y] == playerOneSymbol) {
+                        playerOneSquare += 1;
+                    } else if (this.GameZone[x][y] == playerTwoSymbol) {
+                        playerTwoSquare += 1;
+                    } else {
+                        emptySquare += 1;
+                        emptySquareTotal += 1;
+                    }
+                }
+                switch (emptySquare) {
+                    case 0:
+                        // the line is full
+
+                        // one of player have completed 3 symbol in row
+                        //end the game and decide the winner"
+                        if (playerOneSquare == WINNER_SERIES) {
+                            this.gameIsOver = true;
+                            this.gameIsDraw = false;
+                            this.winnersSymbol = playerOneSymbol;
+                            return this.gameIsOver;
+                        } else if (playerTwoSquare == WINNER_SERIES) {
+                            this.gameIsOver = true;
+                            this.gameIsDraw = false;
+                            this.winnersSymbol = playerTwoSymbol;
+                            return this.gameIsOver;
+                        } else {
+                            // but in the column are different values.
+                            // ->keep on next column
+                            break;
+                        }
+
+                    case 1:
+                        // one empty space in the column
+                        if (playerOneSquare == 1) {
+                            continue;
+                            //each of player have one symbol in this column.
+                            // -> this column can never be winner
+                        } else {
+                            this.gameIsDraw = false;
+                            // on the board is still some square to place symbol.
+                            // one of player have both symbols in this column.
+                            // it can be still winner.
+                            break;
+                        }
+                    default:
+                        // if only one or none symbol is filled in this column,
+                        // it can be still winner.
+                        this.gameIsDraw = false;
+                        break;
+                }
+                ;
+
+            }
 // there are no more empty squares on the board
-        if (emptySquareTotal==0) {
-            this.gameIsDraw=true;
+            if (emptySquareTotal == 0) {
+                this.gameIsDraw = true;
+            }
+            // draw can also be result of the game
+            if (this.gameIsDraw == true) {
+                this.gameIsOver = true;
+            }
+            return this.gameIsOver;
         }
-        // draw can also be result of the game
-        if (this.gameIsDraw==true) {
-            this.gameIsOver=true;}
-        return this.gameIsOver;
-    }
-    public Character winnerIs(){
-        return (this.winnersSymbol);
     }
 
-}
+
+
