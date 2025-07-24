@@ -50,8 +50,8 @@ public class Main {
 //                MyBoardUpdated = myBoard.modifySquare('E');
 //                myBoard.printBoard();
 
-                Player playerOne = new Player("*");
-                Player playerTwo = new Player("+");
+                PlayerOne playerOne = new PlayerOne("*");
+                PlayerTwo playerTwo = new PlayerTwo("+");
 
                 playerOne.addSquare("A2");
                 playerOne.addSquare("A3");
@@ -278,5 +278,29 @@ public class Main {
             return true;
         }
 
+    }
+
+    static class PlayerOne extends Player {
+        boolean onMove;
+        PlayerOne (String playerMark) {
+            super(playerMark);
+        }
+        @Override
+        Boolean isOnMove () {
+            this.onMove = super.isOnMove();
+            return this.onMove;
+        }
+    }
+    static class PlayerTwo extends Player {
+        boolean onMove;
+
+        PlayerTwo (String playerMark) {
+            super(playerMark);
+        }
+        @Override
+        Boolean isOnMove () {
+            this.onMove = !super.isOnMove();
+            return this.onMove;
+        }
     }
 }
