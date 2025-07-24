@@ -34,34 +34,61 @@ public class Main {
             GameBoard myBoard = new GameBoard();
             Boolean MyBoardUpdated = false;
             do {
+                PlayerOne playerOne = new PlayerOne("X");
+                PlayerTwo playerTwo = new PlayerTwo("O");
+
+
                 myBoard.printBoard();
-                MyBoardUpdated = myBoard.modifySquare('A');
-                myBoard.printBoard();
-
-//                MyBoardUpdated = myBoard.modifySquare('B');
-//                myBoard.printBoard();
-//
-//                MyBoardUpdated = myBoard.modifySquare('C');
-//                myBoard.printBoard();
-//
-//                MyBoardUpdated = myBoard.modifySquare('D');
-//                myBoard.printBoard();
-//
-//                MyBoardUpdated = myBoard.modifySquare('E');
-//                myBoard.printBoard();
-
-                PlayerOne playerOne = new PlayerOne("*");
-                PlayerTwo playerTwo = new PlayerTwo("+");
-
-                playerOne.addSquare("A2");
-                playerOne.addSquare("A3");
-                playerTwo.addSquare("A1");
-
                 playerOne.printPlayer();
                 playerTwo.printPlayer();
 
+                if (playerOne.onMove==true){
+                    myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
+                } else{
+                    myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
+                }
+                myBoard.printBoard();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+                playerOne.switchOnMove();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
 
+                if (playerOne.onMove==true){
+                    myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
+                } else{
+                    myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
+                }
+                myBoard.printBoard();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+                playerOne.switchOnMove();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
 
+                if (playerOne.onMove==true){
+                    myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
+                } else{
+                    myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
+                }
+                myBoard.printBoard();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+                playerOne.switchOnMove();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+
+                if (playerOne.onMove==true){
+                    myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
+                } else{
+                    myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
+                }
+                myBoard.printBoard();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+                playerOne.switchOnMove();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
             } while (false);
 
             newGame = anotherGame();
@@ -96,6 +123,80 @@ public class Main {
     }
 
 
+
+
+    static class Player {
+        String playerSymbol;
+        private static Boolean xOnMove;
+        private ArrayList<String> squares = new ArrayList<>();
+
+        Player (String playerMark) {
+            try {
+                if (playerMark.length() !=1) {
+                    System.out.println("Symbol musi mit delku 1 znak");
+                    throw new Exception(ANSI_RED + "Zadej symbol prave 1 znak dlouhy" + ANSI_RESET);
+                }
+                else {
+                    this.playerSymbol = playerMark;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            Random trueOrFalse = new Random();
+            xOnMove = trueOrFalse.nextBoolean();
+        }
+
+        Boolean isOnMove(){
+            return xOnMove;
+        }
+
+        Boolean switchOnMove(){
+            xOnMove = !xOnMove;
+            return xOnMove;
+        }
+
+        String getPlayerSymbol() {
+            return this.playerSymbol;
+        }
+
+        Boolean printPlayer() {
+            System.out.print("Hrac :" + this.playerSymbol);
+            if(this.isOnMove()==true){
+                System.out.print(" je na tahu.");
+            }
+            else  {
+                System.out.print(" neni na tahu.");
+            }
+            System.out.print("\n");
+            return true;
+        }
+
+    }
+
+    static class PlayerOne extends Player {
+        boolean onMove;
+        PlayerOne (String playerMark) {
+            super(playerMark);
+        }
+        @Override
+        Boolean isOnMove () {
+            this.onMove = super.isOnMove();
+            return this.onMove;
+        }
+    }
+    static class PlayerTwo extends Player {
+        boolean onMove;
+
+        PlayerTwo (String playerMark) {
+            super(playerMark);
+        }
+        @Override
+        Boolean isOnMove () {
+            this.onMove = !super.isOnMove();
+            return this.onMove;
+        }
+    }
     static class GameBoard {
         private final Integer LINES_COUNT = 3;
         private final Integer COLUMN_COUNT = 3;
@@ -113,7 +214,6 @@ public class Main {
         }
 
         void printBoard() {
-            Character squareDescription;
             for (int x = 0; x < LINES_COUNT; x++) {
                 Character linesDescription = decoderCoordinates(0, x).charAt(1);
                 System.out.print(ANSI_GREEN + linesDescription + ": " + ANSI_RESET);
@@ -222,85 +322,6 @@ public class Main {
 
             }
             return false;
-        }
-    }
-
-    static class Player {
-        String playerSymbol;
-        private static Boolean xOnMove;
-        private ArrayList<String> squares = new ArrayList<>();
-
-        Player (String playerMark) {
-            try {
-                if (playerMark.length() !=1) {
-                    System.out.println("Symbol musi mit delku 1 znak");
-                    throw new Exception(ANSI_RED + "Zadej symbol prave 1 znak dlouhy" + ANSI_RESET);
-                }
-                else {
-                    this.playerSymbol = playerMark;
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            Random trueOrFalse = new Random();
-            xOnMove = trueOrFalse.nextBoolean();
-        }
-
-        Boolean addSquare(String newSquare) {
-            this.squares.add(newSquare);
-            return true;
-        }
-
-        Boolean isOnMove(){
-            return xOnMove;
-        }
-
-        Boolean switchOnMove(){
-            xOnMove = !xOnMove;
-            return xOnMove;
-        }
-
-        String getPlayerSymbol() {
-            return this.playerSymbol;
-        }
-
-        Boolean printPlayer() {
-            System.out.print("Hrac :" + this.playerSymbol);
-            if(this.isOnMove()==true){
-                System.out.print(" je na tahu.");
-            }
-            else  {
-                System.out.print(" neni na tahu.");
-            }
-            System.out.print("\n");
-            System.out.println("zadana pole: " + this.squares);
-            return true;
-        }
-
-    }
-
-    static class PlayerOne extends Player {
-        boolean onMove;
-        PlayerOne (String playerMark) {
-            super(playerMark);
-        }
-        @Override
-        Boolean isOnMove () {
-            this.onMove = super.isOnMove();
-            return this.onMove;
-        }
-    }
-    static class PlayerTwo extends Player {
-        boolean onMove;
-
-        PlayerTwo (String playerMark) {
-            super(playerMark);
-        }
-        @Override
-        Boolean isOnMove () {
-            this.onMove = !super.isOnMove();
-            return this.onMove;
         }
     }
 }
