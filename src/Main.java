@@ -38,17 +38,28 @@ public class Main {
                 MyBoardUpdated = myBoard.modifySquare('A');
                 myBoard.printBoard();
 
-                MyBoardUpdated = myBoard.modifySquare('B');
-                myBoard.printBoard();
+//                MyBoardUpdated = myBoard.modifySquare('B');
+//                myBoard.printBoard();
+//
+//                MyBoardUpdated = myBoard.modifySquare('C');
+//                myBoard.printBoard();
+//
+//                MyBoardUpdated = myBoard.modifySquare('D');
+//                myBoard.printBoard();
+//
+//                MyBoardUpdated = myBoard.modifySquare('E');
+//                myBoard.printBoard();
 
-                MyBoardUpdated = myBoard.modifySquare('C');
-                myBoard.printBoard();
+                Player playerOne = new Player("*");
+                Player playerTwo = new Player("+");
 
-                MyBoardUpdated = myBoard.modifySquare('D');
-                myBoard.printBoard();
+                playerOne.addSquare("A2");
+                playerOne.addSquare("A3");
+                playerTwo.addSquare("A1");
 
-                MyBoardUpdated = myBoard.modifySquare('E');
-                myBoard.printBoard();
+                playerOne.printPlayer();
+                playerTwo.printPlayer();
+
 
 
             } while (false);
@@ -212,5 +223,60 @@ public class Main {
             }
             return false;
         }
+    }
+
+    static class Player {
+        String playerSymbol;
+        private static Boolean xOnMove;
+        private ArrayList<String> squares = new ArrayList<>();
+
+        Player (String playerMark) {
+            try {
+                if (playerMark.length() !=1) {
+                    System.out.println("Symbol musi mit delku 1 znak");
+                    throw new Exception(ANSI_RED + "Zadej symbol prave 1 znak dlouhy" + ANSI_RESET);
+                }
+                else {
+                    this.playerSymbol = playerMark;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            Random trueOrFalse = new Random();
+            xOnMove = trueOrFalse.nextBoolean();
+        }
+
+        Boolean addSquare(String newSquare) {
+            this.squares.add(newSquare);
+            return true;
+        }
+
+        Boolean isOnMove(){
+            return xOnMove;
+        }
+
+        Boolean switchOnMove(){
+            xOnMove = !xOnMove;
+            return xOnMove;
+        }
+
+        String getPlayerSymbol() {
+            return this.playerSymbol;
+        }
+
+        Boolean printPlayer() {
+            System.out.print("Hrac :" + this.playerSymbol);
+            if(this.isOnMove()==true){
+                System.out.print(" je na tahu.");
+            }
+            else  {
+                System.out.print(" neni na tahu.");
+            }
+            System.out.print("\n");
+            System.out.println("zadana pole: " + this.squares);
+            return true;
+        }
+
     }
 }
