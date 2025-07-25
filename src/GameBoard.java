@@ -32,12 +32,12 @@ public class GameBoard {
                 String squareValue = Character.toString(this.GameZone[x][y]);
                 if (squareValue.equals("E")) {
                     // Replace E symbols with empty space.
-                    squareValue=" ";
+                    squareValue = " ";
                 }
                 if ((x + y) % 2 == 0) {
-                    System.out.print(color.PURPLE_BACKGROUND + " " + squareValue + " ");
+                    System.out.print(color.PURPLE_BACKGROUND + color.ANSI_BLACK + " " + squareValue + " ");
                 } else {
-                    System.out.print(color.WHITE_BACKGROUND + " " + squareValue + " ");
+                    System.out.print(color.WHITE_BACKGROUND + color.ANSI_BLACK + " " + squareValue + " ");
                 }
                 System.out.print(color.ANSI_RESET);
             }
