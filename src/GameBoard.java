@@ -2,19 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public  class GameBoard {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String BLACK_BACKGROUND = "\u001B[40m";
-    public static final String CYAN_BACKGROUND = "\u001B[46m";
-    public static final String PURPLE_BACKGROUND = "\u001B[46m";
-    public static final String WHITE_BACKGROUND = "\u001B[47m";
+    Color color=new Color();
 
     private final Integer LINES_COUNT = 3;
     private final Integer COLUMN_COUNT = 3;
@@ -38,23 +26,23 @@ public  class GameBoard {
     void printBoard() {
         for (int x = 0; x < LINES_COUNT; x++) {
             Character linesDescription = decoderCoordinates(0, x).charAt(1);
-            System.out.print(ANSI_GREEN + linesDescription + ": " + ANSI_RESET);
+            System.out.print(color.ANSI_GREEN + linesDescription + ": " + color.ANSI_RESET);
             for (int y = 0; y < COLUMN_COUNT; y++) {
                 if ((x + y) % 2 == 0) {
-                    System.out.print(PURPLE_BACKGROUND + " " + GameZone[x][y] + " ");
+                    System.out.print(color.PURPLE_BACKGROUND + " " + GameZone[x][y] + " ");
                 } else {
-                    System.out.print(WHITE_BACKGROUND + " " + GameZone[x][y] + " ");
+                    System.out.print(color.WHITE_BACKGROUND + " " + GameZone[x][y] + " ");
                 }
-                System.out.print(ANSI_RESET);
+                System.out.print(color.ANSI_RESET);
             }
             System.out.print("\n");
         }
         System.out.print("   ");
         for (int y = 0; y < COLUMN_COUNT; y++) {
             Character columnDesription = decoderCoordinates(y, 0).charAt(0);
-            System.out.print(ANSI_GREEN + " " + columnDesription + " ");
+            System.out.print(color.ANSI_GREEN + " " + columnDesription + " ");
         }
-        System.out.print(ANSI_RESET + "\n");
+        System.out.print(color.ANSI_RESET + "\n");
     }
 
     String decoderCoordinates(int x, int y) {
@@ -101,7 +89,7 @@ public  class GameBoard {
             targetSquare = inputCoord.nextLine().toUpperCase();
             if (targetSquare.length() != 2) {
                 System.out.println("Invalid Input!");
-                throw new Exception(ANSI_RED + "Zadej prave 2 znaky!" + ANSI_RESET);
+                throw new Exception(color.ANSI_RED + "Zadej prave 2 znaky!" + color.ANSI_RESET);
             } else {
                 Boolean xFound = false;
                 Boolean yFound = false;
@@ -130,17 +118,17 @@ public  class GameBoard {
                         return true;
                     } else {
                         System.out.println("Cilove pole je uz obsazeno!");
-                        throw new Exception(ANSI_RED + "Vyber si prazdne pole!" + ANSI_RESET);
+                        throw new Exception(color.ANSI_RED + "Vyber si prazdne pole!" + color.ANSI_RESET);
                     }
                 } else {
                     System.out.println("Mimo rozsah!");
-                    throw new Exception(ANSI_RED + "Zadej hodnotu v rozsahu!" + ANSI_RESET);
+                    throw new Exception(color.ANSI_RED + "Zadej hodnotu v rozsahu!" + color.ANSI_RESET);
                 }
             }
 
 
         } catch (Exception e) {
-            System.out.println(ANSI_RED + "Invalid input!" + e.getMessage() + ANSI_RESET);
+            System.out.println(color.ANSI_RED + "Invalid input!" + e.getMessage() + color.ANSI_RESET);
 
         }
         return false;
@@ -220,82 +208,82 @@ public  class GameBoard {
             }
             ;
         }
-            //evaluate lines:
-            for (int x = 0; x < LINES_COUNT; x++) {
-                int emptySquare = 0;
+        //evaluate lines:
+        for (int x = 0; x < LINES_COUNT; x++) {
+            int emptySquare = 0;
 
-                int playerOneSquare = 0;
-                int playerTwoSquare = 0;
-                // check lines
-                for (int y = 0; y < COLUMN_COUNT; y++) {
-                    if (this.GameZone[x][y] == playerOneSymbol) {
-                        playerOneSquare += 1;
-                    } else if (this.GameZone[x][y] == playerTwoSymbol) {
-                        playerTwoSquare += 1;
-                    } else {
-                        emptySquare += 1;
-                        emptySquareTotal += 1;
-                    }
+            int playerOneSquare = 0;
+            int playerTwoSquare = 0;
+            // check lines
+            for (int y = 0; y < COLUMN_COUNT; y++) {
+                if (this.GameZone[x][y] == playerOneSymbol) {
+                    playerOneSquare += 1;
+                } else if (this.GameZone[x][y] == playerTwoSymbol) {
+                    playerTwoSquare += 1;
+                } else {
+                    emptySquare += 1;
+                    emptySquareTotal += 1;
                 }
-                switch (emptySquare) {
-                    case 0:
-                        // the line is full
-
-                        // one of player have completed 3 symbol in row
-                        //end the game and decide the winner"
-                        if (playerOneSquare == WINNER_SERIES) {
-                            this.gameIsOver = true;
-                            this.gameIsDraw = false;
-                            this.winnersSymbol = playerOneSymbol;
-                            return this.gameIsOver;
-                        } else if (playerTwoSquare == WINNER_SERIES) {
-                            this.gameIsOver = true;
-                            this.gameIsDraw = false;
-                            this.winnersSymbol = playerTwoSymbol;
-                            return this.gameIsOver;
-                        } else {
-                            // but in the column are different values.
-                            // ->keep on next column
-                            break;
-                        }
-
-                    case 1:
-                        // one empty space in the column
-                        if (playerOneSquare == 1) {
-                            continue;
-                            //each of player have one symbol in this column.
-                            // -> this column can never be winner
-                        } else {
-                            this.gameIsDraw = false;
-                            // on the board is still some square to place symbol.
-                            // one of player have both symbols in this column.
-                            // it can be still winner.
-                            break;
-                        }
-                    default:
-                        // if only one or none symbol is filled in this column,
-                        // it can be still winner.
-                        this.gameIsDraw = false;
-                        break;
-                }
-                ;
-
             }
-            //evaluate diagonals
+            switch (emptySquare) {
+                case 0:
+                    // the line is full
+
+                    // one of player have completed 3 symbol in row
+                    //end the game and decide the winner"
+                    if (playerOneSquare == WINNER_SERIES) {
+                        this.gameIsOver = true;
+                        this.gameIsDraw = false;
+                        this.winnersSymbol = playerOneSymbol;
+                        return this.gameIsOver;
+                    } else if (playerTwoSquare == WINNER_SERIES) {
+                        this.gameIsOver = true;
+                        this.gameIsDraw = false;
+                        this.winnersSymbol = playerTwoSymbol;
+                        return this.gameIsOver;
+                    } else {
+                        // but in the column are different values.
+                        // ->keep on next column
+                        break;
+                    }
+
+                case 1:
+                    // one empty space in the column
+                    if (playerOneSquare == 1) {
+                        continue;
+                        //each of player have one symbol in this column.
+                        // -> this column can never be winner
+                    } else {
+                        this.gameIsDraw = false;
+                        // on the board is still some square to place symbol.
+                        // one of player have both symbols in this column.
+                        // it can be still winner.
+                        break;
+                    }
+                default:
+                    // if only one or none symbol is filled in this column,
+                    // it can be still winner.
+                    this.gameIsDraw = false;
+                    break;
+            }
+            ;
+
+        }
+        //evaluate diagonals
         int emptySquare = 0;
         int playerOneSquare = 0;
         int playerTwoSquare = 0;
-            for (int a = 0; a < LINES_COUNT; a++) {
+        for (int a = 0; a < LINES_COUNT; a++) {
 
-                    if (this.GameZone[a][a] == playerOneSymbol) {
-                        playerOneSquare += 1;
-                    } else if (this.GameZone[a][a] == playerTwoSymbol) {
-                        playerTwoSquare += 1;
-                    } else {
-                        emptySquare += 1;
-                        emptySquareTotal += 1;
-                    }
+            if (this.GameZone[a][a] == playerOneSymbol) {
+                playerOneSquare += 1;
+            } else if (this.GameZone[a][a] == playerTwoSymbol) {
+                playerTwoSquare += 1;
+            } else {
+                emptySquare += 1;
+                emptySquareTotal += 1;
             }
+        }
         switch (emptySquare) {
             case 0:
                 // the line is full
@@ -393,16 +381,13 @@ public  class GameBoard {
                 break;
         }
 // there are no more empty squares on the board
-            if (emptySquareTotal == 0) {
-                this.gameIsDraw = true;
-            }
-            // draw can also be result of the game
-            if (this.gameIsDraw == true) {
-                this.gameIsOver = true;
-            }
-            return this.gameIsOver;
+        if (emptySquareTotal == 0) {
+            this.gameIsDraw = true;
         }
+        // draw can also be result of the game
+        if (this.gameIsDraw == true) {
+            this.gameIsOver = true;
+        }
+        return this.gameIsOver;
     }
-
-
-
+}

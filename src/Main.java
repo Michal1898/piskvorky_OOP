@@ -4,31 +4,18 @@ import java.sql.SQLOutput;
 import java.util.*;
 
 
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String BLACK_BACKGROUND = "\u001B[40m";
-    public static final String CYAN_BACKGROUND = "\u001B[46m";
-    public static final String PURPLE_BACKGROUND = "\u001B[46m";
-    public static final String WHITE_BACKGROUND = "\u001B[47m";
-
-
+    static Color color=new Color();
     public static void main(String[] args) {
         Boolean newGame;
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(ANSI_BLUE + "Piskvorky" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + "vytvoril Michal Volf" + ANSI_RESET);
+        System.out.println(color.ANSI_BLUE + "Piskvorky" + color.ANSI_RESET);
+        System.out.println(color.ANSI_BLUE + "vytvoril Michal Volf" + color.ANSI_RESET);
 
         do {
             /* init game */
@@ -36,6 +23,8 @@ public class Main {
             Boolean MyBoardUpdated = false;
             Boolean gameOver;
             Boolean boardChanged;
+            
+            Color color = new Color();
 
             PlayerOne playerOne = new PlayerOne("X");
             PlayerTwo playerTwo = new PlayerTwo("O");
@@ -65,7 +54,7 @@ public class Main {
 
             } while (gameOver==false);
             System.out.println("Zaverecna pozice:");
-            System.out.println("**********");
+            System.out.println("*****************");
             myBoard.printBoard();
             playerOne.printPlayer();
             playerTwo.printPlayer();
@@ -79,7 +68,7 @@ public class Main {
 
             newGame = anotherGame();
         } while (newGame);
-        System.out.println(ANSI_RED + "Konec programu" + ANSI_RESET);
+        System.out.println(color.ANSI_RED + "Konec programu" + color.ANSI_RESET);
     }
 
     public static Boolean anotherGame() {
@@ -92,7 +81,7 @@ public class Main {
                 if ((yesNo.equals("ano")) || (yesNo.equals("ne"))) {
                     break;
                 } else {
-                    System.out.println(ANSI_RED + "Odpovez ano, nebo ne!" + ANSI_RESET);
+                    System.out.println(color.ANSI_RED + "Odpovez ano, nebo ne!" + color.ANSI_RESET);
                     again.nextLine();
                 }
             } catch (Exception e) {
