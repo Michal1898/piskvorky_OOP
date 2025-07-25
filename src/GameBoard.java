@@ -29,10 +29,15 @@ public class GameBoard {
             Character linesDescription = decoderCoordinates(0, x).charAt(1);
             System.out.print(color.ANSI_GREEN + linesDescription + ": " + color.ANSI_RESET);
             for (int y = 0; y < COLUMN_COUNT; y++) {
+                String squareValue = Character.toString(this.GameZone[x][y]);
+                if (squareValue.equals("E")) {
+                    // Replace E symbols with empty space.
+                    squareValue=" ";
+                }
                 if ((x + y) % 2 == 0) {
-                    System.out.print(color.PURPLE_BACKGROUND + " " + GameZone[x][y] + " ");
+                    System.out.print(color.PURPLE_BACKGROUND + " " + squareValue + " ");
                 } else {
-                    System.out.print(color.WHITE_BACKGROUND + " " + GameZone[x][y] + " ");
+                    System.out.print(color.WHITE_BACKGROUND + " " + squareValue + " ");
                 }
                 System.out.print(color.ANSI_RESET);
             }
@@ -214,9 +219,6 @@ public class GameBoard {
                     emptySquareTotal += 1;
                 }
             }
-            System.out.println("empty square: " + emptySquare);
-            System.out.println("game is over: " + this.gameIsOver);
-            System.out.println("game is draw: " + this.gameIsDraw);
 
             switch (emptySquare) {
                 case 0:
@@ -244,7 +246,6 @@ public class GameBoard {
                     // one empty space in the serie
                     if (playerOneSquare == 1) {
                         ;
-                        System.out.println("serie sort out.");
                         //each of player have one symbol in this serie.
                         // -> this serie can never be winner
                     } else {
@@ -264,8 +265,6 @@ public class GameBoard {
             }
         }
 
-        System.out.println("game is over: " + this.gameIsOver);
-        System.out.println("game is draw: " + this.gameIsDraw);
         if (emptySquareTotal == 0) {
             // there are no more empty squares on the board
             this.gameIsDraw = true;

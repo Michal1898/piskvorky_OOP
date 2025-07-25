@@ -28,21 +28,19 @@ public class Main {
 
             PlayerOne playerOne = new PlayerOne("X");
             PlayerTwo playerTwo = new PlayerTwo("O");
+            System.out.println("Hra zacina:");
+            myBoard.printBoard();
+            playerOne.printPlayer();
+            playerTwo.printPlayer();
 
             do {
-                System.out.println("Hra zacina:");
-                myBoard.printBoard();
-                playerOne.printPlayer();
-                playerTwo.printPlayer();
 
                 do {
                     if (playerOne.onMove == true) {
                         boardChanged = myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
-                        System.out.println(boardChanged);
                     } else {
                         boardChanged = myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
                     }
-                    myBoard.printBoard();
                 } while (boardChanged == false);
 
                 playerOne.switchOnMove();
