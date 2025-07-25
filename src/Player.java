@@ -1,18 +1,18 @@
 import java.util.*;
+
 public class Player {
 
     String playerSymbol;
     private static Boolean xOnMove;
     private ArrayList<String> squares = new ArrayList<>();
-    static Color color=new Color();
+    static Color color = new Color();
 
-    Player (String playerMark) {
+    Player(String playerMark) {
         try {
-            if (playerMark.length() !=1) {
+            if (playerMark.length() != 1) {
                 System.out.println("Symbol musi mit delku 1 znak");
                 throw new Exception(color.ANSI_RED + "Zadej symbol prave 1 znak dlouhy" + color.ANSI_RESET);
-            }
-            else {
+            } else {
                 this.playerSymbol = playerMark;
             }
         } catch (Exception e) {
@@ -23,11 +23,11 @@ public class Player {
         xOnMove = trueOrFalse.nextBoolean();
     }
 
-    Boolean isOnMove(){
+    Boolean isOnMove() {
         return xOnMove;
     }
 
-    Boolean switchOnMove(){
+    Boolean switchOnMove() {
         xOnMove = !xOnMove;
         return xOnMove;
     }
@@ -38,10 +38,9 @@ public class Player {
 
     Boolean printPlayer() {
         System.out.print("Hrac :" + this.playerSymbol);
-        if(this.isOnMove()==true){
+        if (this.isOnMove() == true) {
             System.out.print(" je na tahu.");
-        }
-        else  {
+        } else {
             System.out.print(" neni na tahu.");
         }
         System.out.print("\n");
