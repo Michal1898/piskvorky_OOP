@@ -11,8 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         Boolean newGame;
-        Random random = new Random();
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println(color.ANSI_BLUE + "Piskvorky" + color.ANSI_RESET);
         System.out.println(color.ANSI_BLUE + "vytvoril Michal Volf" + color.ANSI_RESET);

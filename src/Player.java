@@ -18,18 +18,18 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        Random random = new Random();
         Random trueOrFalse = new Random();
-        xOnMove = trueOrFalse.nextBoolean();
+        this.xOnMove = trueOrFalse.nextBoolean();
     }
 
     Boolean isOnMove() {
-        return xOnMove;
+        return this.xOnMove;
     }
 
     Boolean switchOnMove() {
-        xOnMove = !xOnMove;
-        return xOnMove;
+        this.xOnMove = !xOnMove;
+        return this.xOnMove;
     }
 
     String getPlayerSymbol() {
