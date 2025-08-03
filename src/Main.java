@@ -24,8 +24,8 @@ public class Main {
 
             Color color = new Color();
 
-            PlayerOne playerOne = new PlayerOne("X");
-            PlayerTwo playerTwo = new PlayerTwo("O");
+            Player playerOne = new Player("X");
+            Player playerTwo = new Player("O");
             System.out.println("Hra zacina:");
             myBoard.printBoard();
             playerOne.printPlayer();
@@ -34,7 +34,7 @@ public class Main {
             do {
 
                 do {
-                    if (playerOne.onMove == true) {
+                    if (playerOne.isOnMove() == true) {
                         boardChanged = myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
                     } else {
                         boardChanged = myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
