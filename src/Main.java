@@ -1,11 +1,5 @@
-import org.w3c.dom.ls.LSOutput;
-
-import java.sql.SQLOutput;
 import java.util.*;
 
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static Color color = new Color();
 
@@ -28,43 +22,51 @@ public class Main {
             Player playerTwo = new Player("O");
             System.out.println("Hra zacina:");
             myBoard.printBoard();
-            playerOne.printPlayer();
-            playerTwo.printPlayer();
+            printPlayer(playerOne.playerSymbol(), playerOne.xOnMove());
+            printPlayer(playerTwo.playerSymbol(), !playerTwo.xOnMove());
 
             do {
-
                 do {
-                    if (playerOne.isOnMove() == true) {
+                    if (playerOne.xOnMove()) {
                         boardChanged = myBoard.modifySquare(playerOne.getPlayerSymbol().charAt(0));
                     } else {
                         boardChanged = myBoard.modifySquare(playerTwo.getPlayerSymbol().charAt(0));
                     }
-                } while (boardChanged == false);
+                } while (!boardChanged);
 
                 playerOne.switchOnMove();
                 myBoard.printBoard();
                 gameOver = myBoard.evaluateBoard(playerOne.getPlayerSymbol().charAt(0), playerTwo.getPlayerSymbol().charAt(0));
 
-                playerOne.printPlayer();
-                playerTwo.printPlayer();
+                printPlayer(playerOne.playerSymbol(), playerOne.xOnMove());
+                printPlayer(playerTwo.playerSymbol(), !playerTwo.xOnMove());
 
-            } while (gameOver == false);
+            } while (!gameOver);
+
             System.out.println("Zaverecna pozice:");
             System.out.println("*****************");
             myBoard.printBoard();
-            playerOne.printPlayer();
-            playerTwo.printPlayer();
+            printPlayer(playerOne.playerSymbol(), playerOne.xOnMove());
+            printPlayer(playerTwo.playerSymbol(), !playerTwo.xOnMove());
 
-            if (myBoard.gameIsDraw() == true) {
+            if (myBoard.gameIsDraw()) {
                 System.out.println("Hra konci nerozhodne.");
             } else {
                 System.out.println("Vitezem je: " + myBoard.winnerIs());
             }
 
-
             newGame = anotherGame();
         } while (newGame);
         System.out.println(color.ANSI_RED + "Konec programu" + color.ANSI_RESET);
+    }
+
+    public static void printPlayer(String PlayerSymbol, Boolean isOnMove) {
+        System.out.print("Hrac " + PlayerSymbol);
+        if (isOnMove) {
+            System.out.print(" je na tahu.\n");
+        } else {
+            System.out.print(": na tahu je souper.\n");
+        }
     }
 
     public static Boolean anotherGame() {
@@ -84,7 +86,6 @@ public class Main {
                 System.out.println("Invalid input!");
                 System.out.println("Odpovez ano, nebo ne!");
             }
-
         }
         if (yesNo.equals("ano")) {
             return true;
@@ -92,6 +93,5 @@ public class Main {
             return false;
         }
     }
-
 
 }

@@ -23,9 +23,11 @@ public class Player {
         this.xOnMove = trueOrFalse.nextBoolean();
     }
 
-    Boolean isOnMove() {
+    Boolean xOnMove() {
         return this.xOnMove;
     }
+
+    String playerSymbol() {return this.playerSymbol; }
 
     Boolean switchOnMove() {
         this.xOnMove = !xOnMove;
@@ -34,17 +36,6 @@ public class Player {
 
     String getPlayerSymbol() {
         return this.playerSymbol;
-    }
-
-    Boolean printPlayer() {
-        System.out.print("Hrac :" + this.playerSymbol);
-        if (this.isOnMove() == true) {
-            System.out.print(" je na tahu.");
-        } else {
-            System.out.print(" neni na tahu.");
-        }
-        System.out.print("\n");
-        return true;
     }
 
 }
